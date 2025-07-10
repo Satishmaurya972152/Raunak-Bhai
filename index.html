@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Rauank - Meri Jaan 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: linear-gradient(to right, #ffecd2, #fcb69f);
+      font-family: 'Roboto', sans-serif;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      transform: rotate(45deg);
+      animation: float 10s linear infinite;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotate(45deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) rotate(45deg);
+        opacity: 0;
+      }
+    }
+
+    .container {
+      position: relative;
+      z-index: 10;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      color: #ff4081;
+      animation: slideIn 2s ease-out;
+      font-family: 'Pacifico', cursive;
+    }
+
+    #message {
+      font-size: 1.2em;
+      color: #333;
+      margin: 20px;
+      min-height: 150px;
+      white-space: pre-line;
+      line-height: 1.5;
+    }
+
+    button {
+      padding: 15px 30px;
+      font-size: 1em;
+      border: none;
+      background-color: #ff4081;
+      color: white;
+      border-radius: 30px;
+      cursor: pointer;
+      margin-top: 30px;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #ff2052;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(-50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .firework {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: yellow;
+      animation: explode 1s ease-out forwards;
+    }
+
+    @keyframes explode {
+      0% { transform: scale(0); opacity: 1; }
+      100% { transform: scale(10); opacity: 0; }
+    }
+
+    .final-message {
+      color: #ff4081;
+      font-size: 1.4em;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating hearts -->
+  <div class="heart" style="left:10%; animation-delay: 0s;"></div>
+  <div class="heart" style="left:30%; animation-delay: 2s;"></div>
+  <div class="heart" style="left:50%; animation-delay: 4s;"></div>
+  <div class="heart" style="left:70%; animation-delay: 6s;"></div>
+  <div class="heart" style="left:90%; animation-delay: 8s;"></div>
+
+  <div class="container">
+    <h1>Rauank - Meri Jaan 💖</h1>
+
+    <p id="message"></p>
+
+    <button onclick="saySorry(); playMusic();">Maaf Kar De Yaar 💖</button>
+
+    <audio id="bgMusic" loop>
+      <source src="https://cdn.pixabay.com/audio/2023/03/02/audio_bdf65b14a4.mp3" type="audio/mpeg">
+    </audio>
+  </div>
+
+  <script>
+    const message = `Gussa toh apno se hi hote hai,
+Par yaad rakhna... apne toh kabhi paraye nahi hote,
+
+Har lafz mein sirf tera naam hi hota hai,
+Rauank BHAI, tum sirf mere dost nahi… meri JAAN ho!`;
+
+    let i = 0;
+    const speed = 50;
+
+    function typeWriter() {
+      if (i < message.length) {
+        document.getElementById("message").innerHTML += message.charAt(i);
+        i++;
+        setTimeout(typeWriter, speed);
+      }
+    }
+    typeWriter();
+
+    function saySorry() {
+      for (let i = 0; i < 30; i++) {
+        const firework = document.createElement('div');
+        firework.className = 'firework';
+        firework.style.top = `${Math.random() * 100}%`;
+        firework.style.left = `${Math.random() * 100}%`;
+        firework.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+        document.body.appendChild(firework);
+        setTimeout(() => firework.remove(), 1000);
+      }
+
+      const cuteMessage = document.createElement('p');
+      cuteMessage.innerText = "Dosti ki asli jeet tab hoti hai, jab dono phir se ek ho jaayein 💖";
+      cuteMessage.style.color = "#ff4081";
+      cuteMessage.style.fontSize = "1.2em";
+      document.querySelector('.container').appendChild(cuteMessage);
+
+      const finalMessage = document.createElement('div');
+      finalMessage.className = 'final-message';
+      finalMessage.innerHTML = "<br>Satish ❤️ Rauank<br>Yeh Dosti Kabhi Nahi Tootegi!<br>Forever Friends 💖";
+      document.querySelector('.container').appendChild(finalMessage);
+    }
+
+    function playMusic() {
+      document.getElementById("bgMusic").play();
+    }
+  </script>
+
+</body>
+</html>
